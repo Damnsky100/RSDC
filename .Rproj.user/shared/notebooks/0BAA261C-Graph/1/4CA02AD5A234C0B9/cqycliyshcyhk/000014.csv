@@ -1,0 +1,6 @@
+"0",""
+"0","data_RSDC1 = read_excel(""In_Sample_Pelletier.xlsx"")"
+"0","data_RSDC2 = read_excel(""Out_Sample_Pelletier.xlsx"")"
+"0","data_RSDC <- rbind(data_RSDC1, data_RSDC2[,2:5] )"
+"0",""
+"0","data_RSDC"
