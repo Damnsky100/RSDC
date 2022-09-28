@@ -1,0 +1,6 @@
+"0","#Graph the dataframes"
+"0","data_RSDC$time <- as.numeric(row.names(data_RSDC))"
+"0","                   "
+"0",""
+"0","graph <- ggplot(data=data_RSDC,aes(x=time, y = `GBP/USD` )) + geom_line()"
+"0","graph + ggtitle(""GBP/USD"") + theme(plot.title = element_text(hjust = 0.5))"
