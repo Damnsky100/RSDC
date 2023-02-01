@@ -1,6 +1,6 @@
 
 
-## Imoport Library
+## Import Library
 
 import numpy as np
 import pandas as pd
@@ -14,6 +14,27 @@ from datetime import datetime
 
 #Pour graphique
 from matplotlib import pyplot as plt
+
+
+def load_Sp500():
+    
+    data = si.get_data("^GSPC", start_date = '01/01/2000')
+    data.index = pd.to_datetime(data.index)
+
+    n_tradingday = 252
+    n_years = 4
+    nb_bins = 5
+
+    date =['2000', '2004', '2008', '2012', '2016']
+
+    df_data = pd.DataFrame()
+
+
+    for i in range(nb_bins):
+        tmp =  data["close"][ i* (n_tradingday * n_years)  : (i+1)*(n_tradingday * n_years) ].values
+        df_data.insert(i, date[i], value= tmp)
+        
+    return df_data
 
 
 
