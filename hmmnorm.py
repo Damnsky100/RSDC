@@ -32,7 +32,7 @@ def generateNorm(params,x):
     series1 = np.random.normal(u1,math.sqrt(sig2),T)
     st=[]
 
-    for i in range(len(x)-1):
+    for i in range(T):
         if (x[i]==0):
             st.append(series0[i])
         else:
@@ -181,14 +181,14 @@ def optimize(y):
 def AIC(optparams):
 
     #Since the loglikelyhood in the aic is a positive number, we multiply by -1 since we minimized the -log
-    aic = -1*-2*optparams.fun + 2*len(optparams.x)
+    aic = 2*optparams.fun + 2*len(optparams.x)
 
     return aic
 
 
 def MonteCarloSimulate(count):
 
-    df = pd.DataFrame(columns = ["u0e","u1e", "sige", "p11e", "p22e"])
+    df = pd.DataFrame(columns = ["u0e","u1e", "sige", "p11e", "p22e", "sig2e"])
 
     for i in tqdm(range(count)):
 
@@ -213,7 +213,7 @@ def MonteCarloSimulate(count):
         x = generate_state(transmat, t)
 
         #Step 3, we generate the ar according to the states
-        y = generateNorm(params,x)
+        y = generateNorm(params, x)
 
         #Step 4 we generate the probabilities with the filter
         p1filt,p2filt = generate_p(params, y)
@@ -252,51 +252,53 @@ def MonteCarloSimulate(count):
 
     return df
 
+
 #result = MonteCarloSimulate(100)
+
 #print(result)
 #result.to_csv("result22.csv")
 
-# #Step 1, we initiate data
-# delta1 = 3
-# delta2 = 0.8
-# phi = 0.6
-# sig = 0.4
-# p11 = 0.9
-# p22 = 0.85
-# p12 = 1 - p11
-# p21 = 1 - p22
-# params = [delta1,delta2,phi,sig,p11,p22]
-# transmat = [[p11,p12],[p21,p22]]
+#Step 1, we initiate data
+#delta1 = 3
+#delta2 = 0.8
+#phi = 0.6
+#sig = 0.4
+#p11 = 0.9
+#p22 = 0.85
+#p12 = 1 - p11
+#p21 = 1 - p22
+#params = [delta1,delta2,phi,sig,p11,p22]
+#transmat = [[p11,p12],[p21,p22]]
 
-# #Step 2 generate states according to the matrix
-# realstates = generate_state(transmat,400)
+#Step 2 generate states according to the matrix
+#realstates = generate_state(transmat, 400)
 
-# #Step 3: generate the ar according to the states
-# y = generateAR(params, realstates)
+#Step 3: generate the ar according to the states
+#y = generateNorm(params, realstates)
 
-# #step 4: We generate the probabilities with the filter
-# p1filt, p2filt = generate_p(params,y)
+#step 4: We generate the probabilities with the filter
+#p1filt, p2filt = generate_p(params,y)
 
-# #Step 5: We obtain the states predicted by the filts
-# hmmstates = hmm(p1filt, p2filt)
+#Step 5: We obtain the states predicted by the filts
+#hmmstates = hmm(p1filt, p2filt)
 
-# #Step 6: We find the transition matrix according to the predicted states
-# hmmtransmat = find_transition(hmmstates)
+#Step 6: We find the transition matrix according to the predicted states
+#hmmtransmat = find_transition(hmmstates)
 
-# #Step 7: Optimize the parameters using y
-# optimizeroutput = optimize(y)
-# print(optimizeroutput.x)
+#Step 7: Optimize the parameters using y
+#optimizeroutput = optimize(y)
+#print(optimizeroutput.x)
 
-# x_axis = range(len(realstates))
-# y_axis1 = y
-# y_axis2 = realstates
-# y_axis3= hmmstates
+#x_axis = range(len(realstates))
+#y_axis1 = y
+#y_axis2 = realstates
+#y_axis3= hmmstates
 
-# print(transmat)
-# print(hmmtransmat)
+#print(transmat)
+#print(hmmtransmat)
 
-# plt.plot(x_axis,y_axis1)
-# plt.plot(x_axis,y_axis2, color= "red", linewidth ="6")
-# plt.plot(x_axis,y_axis3, color = "green")
+#plt.plot(x_axis,y_axis1)
+#plt.plot(x_axis,y_axis2, color= "red", linewidth ="6")
+#plt.plot(x_axis,y_axis3, color = "green")
 
-# plt.show()
+#plt.show()
