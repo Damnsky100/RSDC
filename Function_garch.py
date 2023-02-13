@@ -38,6 +38,24 @@ def load_Sp500():
 
 
 
+def load_nasdaq():
+    data = si.get_data("^IXIC", start_date = '01/01/2000')
+    data.index = pd.to_datetime(data.index)
+
+    n_tradingday = 252
+    n_years = 4
+    nb_bins = 5
+
+    date =['2000', '2004', '2008', '2012', '2016']
+
+    df_data = pd.DataFrame()
+
+
+    for i in range(nb_bins):
+        tmp =  data["close"][ i* (n_tradingday * n_years)  : (i+1)*(n_tradingday * n_years) ].values
+        df_data.insert(i, date[i], value= tmp)
+    return df_data
+
 ############ Premiére différence * 100 pour le rendement ##############
 
 def logf_diff(data):
@@ -117,7 +135,7 @@ def generer_estime(ret):
     
     std_return = ret / np.sqrt(sigma_2) #return standardisé par l'écart-type conditionnel
     
-    return   np.around([alpha_0, alpha_1, beta],4), np.around(sigma_2,4), np.around(std_return, 4)
+    return   np.around([alpha_0, alpha_1, beta],4), np.around(sigma_2, 4), np.around(std_return, 4)
 
 
 

@@ -38,6 +38,8 @@ def ImplementOptim(logreturns):
     return states, pfiltnorm
 
 
+
+
 def plot(returns,pfiltnorm):
 
     x= range(len(returns))
@@ -61,3 +63,8 @@ states2016,pfilt2016 = ImplementOptim(ret2016)
 #plot(ret2008,pfilt2008)
 #plot(ret2012,pfilt2012)
 plot(ret2016,pfilt2016)
+
+
+
+test = fg.generer_estime(ret2000)
+
