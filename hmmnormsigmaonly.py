@@ -172,7 +172,7 @@ def optimize(y):
     con4 = {"type": "ineq", "fun": constraint4}
     cons = [con1,con2,con3,con4]
     bounds = ((0,None),(0.1,2),(0.001,1),(0.001,1),(0.1,2))
-    xo=[0.01,1,0.7,0.7,1]
+    xo=[0.01,1,0.5,0.5,1]
     optparams = spo.minimize(hamilton,args=(y,), x0=xo, bounds = bounds, method = "SLSQP")
     return optparams
 
